@@ -137,11 +137,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1801204904082999024, guid: c9f290dc26691b441806920dccded277, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1801204904082999024, guid: c9f290dc26691b441806920dccded277, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.6182003
+      value: -3.75
       objectReference: {fileID: 0}
     - target: {fileID: 1801204904082999024, guid: c9f290dc26691b441806920dccded277, type: 3}
       propertyPath: m_LocalPosition.z
@@ -176,9 +176,25 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3867494501786432982, guid: c9f290dc26691b441806920dccded277, type: 3}
+      propertyPath: xVel
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3867494501786432982, guid: c9f290dc26691b441806920dccded277, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 2005755425}
+    - target: {fileID: 3867494501786432982, guid: c9f290dc26691b441806920dccded277, type: 3}
+      propertyPath: spriteWidth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516275802303797370, guid: c9f290dc26691b441806920dccded277, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5516275802303797370, guid: c9f290dc26691b441806920dccded277, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -433,6 +449,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrayofboxes: []
+  defaultBlockWidth: 2
+  defaultBlockSpeed: 2
+  difficultySettings:
+  - numberOfBlocksPlaced: 3
+    blockWidth: 1.5
+    blockSpeed: 3
+  - numberOfBlocksPlaced: 6
+    blockWidth: 1
+    blockSpeed: 4
+  - numberOfBlocksPlaced: 9
+    blockWidth: 0.5
+    blockSpeed: 4.5
+  - numberOfBlocksPlaced: 12
+    blockWidth: 0.3
+    blockSpeed: 5
+  orderList: 0
 --- !u!4 &2005755427
 Transform:
   m_ObjectHideFlags: 0

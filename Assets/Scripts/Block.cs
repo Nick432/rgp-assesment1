@@ -5,152 +5,152 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject blockPrefab;
 
-    public bool hasBeenPlaced  = false;
+    float blockSpeed;
+    
+    bool hasBeenPlaced = false;
+    bool hasSpawned = false ;
 
-    private bool has_spawned = false ;
+    float width;
+    float height;
+
+    Game_Manager gameManager;
+    Camera mainCamera;
+    SpriteRenderer spriteRenderer;
+
+    Vector3 cameraRelativePosition;
+
+    float relativeX;
+    
+    float cameraWidth;
+    float cameraheight;
 
 
+    GameObject[] blockArray;
 
-    public Vector3 positionorigin;
-
-    private  float xvel = 0.003f;
-
-    public  float sprite_width;
-
-    public float  sprite_height;
-   
-
-    public GameObject block;
-    public GameObject gameManager;
+    
     // Start is called before the first frame update
     void Start()
     {
-        hasBeenPlaced = false;
+        gameManager = FindObjectOfType<Game_Manager>();
+        mainCamera = Camera.main;
+
+        blockSpeed = gameManager.GetBlockSpeed();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        width = gameManager.GetBlockWidth();
+        spriteRenderer.transform.localScale = new Vector3 (width,
+                                                           spriteRenderer.transform.localScale.y,
+                                                           spriteRenderer.transform.localScale.z);
+        height = spriteRenderer.transform.localScale.y;
+        
+        cameraWidth = mainCamera.orthographicSize * 2f * mainCamera.aspect;
+        cameraheight = mainCamera.orthographicSize * 2f;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        cameraRelativePosition = transform.position - mainCamera.transform.position;
+        relativeX = cameraRelativePosition.x;
+        blockArray = gameManager.arrayofboxes;
 
+        HandleInput();
 
+        HandleBlockMovement();
 
-        var camera = Camera.main;
-        Vector3 camerarelativeposition = transform.position - camera.transform.position;
+        HandleNewBlockInstantiation();
 
-        var relativex = camerarelativeposition.x;
-        
+    }
 
-        var camerawidth = camera.orthographicSize * 2f * camera.aspect;
-        var cameraheight = camera.orthographicSize * 2f;
-
-
-        var boxarray = gameManager.GetComponent<Game_Manager>().arrayofboxes;
-
-
-
+    void HandleInput()
+    {
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            PlaceBlock();
+        }
+    }
 
-            for (var i = 0; i < boxarray.Length; i++)
-            {
+    void PlaceBlock()
+    {
+        if (hasBeenPlaced) return;
 
+        // If not placed yet, this must be the most recent block; i.e. the 
+        // block with index equal to the array length - 1.
+        int thisBlockIndex = blockArray.Length - 1;
 
-                var currentbox = boxarray[i].GetComponent<Block>();
+        hasBeenPlaced = true;
 
+        // Place the initial block without checking for a previous block.
+        if (thisBlockIndex == 0)
+        {
+            Debug.Log("Intiial block placed.");
+        }
+        // Place subsequent blocks after comparing to the previous block placement.
+        else
+        {
+            DetermineSuccessfulPlacement(thisBlockIndex);
+        }
+    }
 
-                if (i == 0 && boxarray.Length - 1 == 0 && hasBeenPlaced == false)
-                {
-                    hasBeenPlaced = true;
-                    Debug.Log("intiial block placed  ");
+    void DetermineSuccessfulPlacement(int thisBlockIndex)
+    {
+        Block previousBlock = blockArray[thisBlockIndex - 1].GetComponent<Block>();
 
-                }
+        // Determine the position range that counts as a successful placement.
+        float successfulPositionRange = previousBlock.width + width;
+        float successfulPositionMin = previousBlock.transform.position.x -
+                                        successfulPositionRange / 2f;
+        float successfulPositionMax = previousBlock.transform.position.x +
+                                        successfulPositionRange / 2f;
+        float xPosition = transform.position.x;
 
+        bool isWithinSuccessRange = false;
 
-                else if (boxarray.Length   >  1 && i  == boxarray.Length -1 )  {
-
-                   // Debug.Log(boxarray);
-
-                    if (currentbox.hasBeenPlaced == false && boxarray[i].transform.position.x >= boxarray[i - 1].transform.position.x - sprite_width && boxarray[i].transform.position.x <= boxarray[i - 1].transform.position.x + sprite_width)
-                    {
-
-                        
-                      
-                        currentbox.hasBeenPlaced = true;
-
-                        Debug.Log("block succesfully stacked");
-
-
-                    }
-
-                    else if (currentbox.hasBeenPlaced == false && boxarray[i].transform.position.x >= boxarray[i - 1].transform.position.x - sprite_width == false || currentbox.hasBeenPlaced == false && boxarray[i].transform.position.x <= boxarray[i - 1].transform.position.x + sprite_width == false)
-                    {
-
-
-                        currentbox.hasBeenPlaced = true;
-                        Debug.Log("failed to stack block correctly");
-
-                       
-
-                    }
-
-                }
-
-            }
-
-
-
-
+        if (xPosition >= successfulPositionMin && xPosition <= successfulPositionMax)
+        {
+            isWithinSuccessRange = true;
         }
 
+        if (isWithinSuccessRange)
+        {
+            Debug.Log("Block succesfully stacked");
+        }
+        else
+        {
+            Debug.Log("Block failed to stack");
+        }
+    }
 
-
-
-
-
-
-
-
-
-
-
-
+    void HandleBlockMovement()
+    {
         if (hasBeenPlaced == false)
         {
-
-
-            if (   relativex >= camerawidth / 2f )
+            if (relativeX >= cameraWidth / 2f)
             {
-
-                xvel *= -1f ;
-
-
+                blockSpeed *= -1f;
             }
-            else if(relativex <= -camerawidth / 2f)
+            else if (relativeX <= -cameraWidth / 2f)
             {
-
-
-
-                xvel = Mathf.Abs(xvel);
+                blockSpeed = Mathf.Abs(blockSpeed);
             }
 
-            Vector3 newposition = new Vector3(transform.position.x + xvel, transform.position.y ,0);
+            float newXPosition = transform.position.x + blockSpeed * Time.deltaTime;
+            Vector3 newPosition = new Vector3(newXPosition, transform.position.y, 0);
 
-
-
-            transform.position = newposition;
-
-
-
+            transform.position = newPosition;
         }
-      if(hasBeenPlaced == true && has_spawned == false)
+    }
+
+    void HandleNewBlockInstantiation()
+    {
+        if (hasBeenPlaced == true && hasSpawned == false)
         {
 
-            Instantiate(block,new Vector3(transform.position.x ,transform.position.y + sprite_height,0),Quaternion.identity);
+            Instantiate(blockPrefab, new Vector3(transform.position.x, transform.position.y + height, 0), Quaternion.identity);
 
-            has_spawned = true;
+            hasSpawned = true;
         }
-
     }
 }
