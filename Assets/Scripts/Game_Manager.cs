@@ -68,7 +68,6 @@ public class Game_Manager : MonoBehaviour
         arrayofboxes = GameObject.FindGameObjectsWithTag("Block");
         blocksPlaced = arrayofboxes.Length - 1;
         
-        Debug.Log("Blocks " + blocksPlaced);
         int nextSettingIndex = currentSettingIndex + 1;
 
         // Return if there aren't any higher settings to go to.
