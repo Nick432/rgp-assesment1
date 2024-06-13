@@ -1,0 +1,58 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\ncrow\\rgp assesment1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A32E0BD4-7EEA-1C1C-B205-9E4A3885B4FC}|Assembly-CSharp.csproj|c:\\users\\ncrow\\rgp assesment1\\assets\\block.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A32E0BD4-7EEA-1C1C-B205-9E4A3885B4FC}|Assembly-CSharp.csproj|solutionrelative:assets\\block.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A32E0BD4-7EEA-1C1C-B205-9E4A3885B4FC}|Assembly-CSharp.csproj|C:\\Users\\ncrow\\rgp assesment1\\assets\\game_manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A32E0BD4-7EEA-1C1C-B205-9E4A3885B4FC}|Assembly-CSharp.csproj|solutionrelative:assets\\game_manager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Block.cs",
+              "DocumentMoniker": "C:\\Users\\ncrow\\rgp assesment1\\Assets\\Block.cs",
+              "RelativeDocumentMoniker": "Assets\\Block.cs",
+              "ToolTip": "C:\\Users\\ncrow\\rgp assesment1\\Assets\\Block.cs",
+              "RelativeToolTip": "Assets\\Block.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAAAowEgAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-11T05:52:28.753Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Game_Manager.cs",
+              "DocumentMoniker": "C:\\Users\\ncrow\\rgp assesment1\\Assets\\Game_Manager.cs",
+              "RelativeDocumentMoniker": "Assets\\Game_Manager.cs",
+              "ToolTip": "C:\\Users\\ncrow\\rgp assesment1\\Assets\\Game_Manager.cs",
+              "RelativeToolTip": "Assets\\Game_Manager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-11T06:05:31.523Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
