@@ -6,69 +6,61 @@ using UnityEngine;
 
 public class Game_Manager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [HideInInspector] public GameObject[] arrayofboxes;
+    [Header("Block Parameters")]
     [SerializeField] float defaultBlockWidth = 2f;
     [SerializeField] float defaultBlockSpeed = 2f;
+    public float blockHeight = 0.5f;
     [SerializeField] List<Difficulty_Setting> difficultySettings = new List<Difficulty_Setting>();
-    [SerializeField] bool orderList;
+    [SerializeField] bool orderList; //Button to sort list in inspector;
 
-    float blockWidth;
-    float blockSpeed;
+    [Header("Game Boundaries")]
+    public Transform playScreen;
+    public Transform stackLimitMarker;
+    
 
-    int currentSettingIndex = -1;
+    [HideInInspector] public GameObject[] blockArray;
+    [HideInInspector] public float blockWidth;
+    [HideInInspector] public float blockSpeed;
+
+    int blocksPlaced = 0;
+    int currentSettingIndex = -1; // Initialised at -1 since default values are used first.
+
 
     // Ensures the list is in order of number of placed blocks from smallest to largest.
+    // OnValidate is called when a value changes in the inspector.
     void OnValidate() 
     {
         if (orderList)
         {
             orderList = false;
             difficultySettings = difficultySettings.OrderByDescending(
-                                 x => int.MaxValue - x.numberOfBlocksPlaced).ToList();
+                                 x => -x.numberOfBlocksPlaced).ToList();
         }
     }
-
-    int blocksPlaced;
 
     void Awake()
     {
         // Add starting block to array.
-        arrayofboxes = GameObject.FindGameObjectsWithTag("Block");
+        blockArray = GameObject.FindGameObjectsWithTag("Block");
+        // Set initial block settings.
         blockWidth = defaultBlockWidth;
         blockSpeed = defaultBlockSpeed;
+        // Check settings list in case it overrides the default settings.
         CheckForUpdatedSettings();
-
     }
 
-    // Update is called once per frame
-    void Update()
+    public void UpdateBlocksPlaced()
     {
+        blocksPlaced++;
+        Debug.Log("Blocks placed: " + blocksPlaced);
 
-        // Add new blocks to array.
-        
-    }
-
-    public float GetBlockWidth()
-    {
         CheckForUpdatedSettings();
-
-        return blockWidth;
-    }
-
-    public float GetBlockSpeed()
-    {
-        CheckForUpdatedSettings();
-
-        return blockSpeed;
     }
 
     void CheckForUpdatedSettings()
     {
-        arrayofboxes = GameObject.FindGameObjectsWithTag("Block");
-        blocksPlaced = arrayofboxes.Length - 1;
+        blockArray = GameObject.FindGameObjectsWithTag("Block");
         
-        Debug.Log("Blocks " + blocksPlaced);
         int nextSettingIndex = currentSettingIndex + 1;
 
         // Return if there aren't any higher settings to go to.
@@ -81,7 +73,19 @@ public class Game_Manager : MonoBehaviour
             blockWidth = difficultySettings[currentSettingIndex].blockWidth;
             blockSpeed = difficultySettings[currentSettingIndex].blockSpeed;
         }
-
     }
 
+    public void MoveBlocksDown()
+    {
+        // Move each block down by a distance of one block's height.
+        foreach (GameObject block in blockArray)
+        {
+            block.transform.position = new Vector2 (block.transform.position.x,
+                                                    block.transform.position.y - blockHeight);
+        }
+
+        // Deactivate and destroy the first block in the stack.
+        blockArray[0].SetActive(false);
+        Destroy(blockArray[0]);
+    }
 }
