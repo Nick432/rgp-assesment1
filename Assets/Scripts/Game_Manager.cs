@@ -14,7 +14,7 @@ public class Game_Manager : MonoBehaviour
     [SerializeField] bool orderList; //Button to sort list in inspector;
 
     [Header("Game Boundaries")]
-    public Transform playScreen;
+    public Transform gameScreen;
     public Transform stackLimitMarker;
     
 
