@@ -45,11 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 000ffde68a6343a4b9c54fba12708167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasBeenPlaced: 0
-  positionOrigin: {x: 0, y: 0, z: 0}
-  xVel: 2
-  spriteWidth: 0
-  spriteHeight: 0.3
   blockPrefab: {fileID: 757317104046850030}
 --- !u!1 &8847189164348689705
 GameObject:
@@ -125,7 +120,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.11220897, g: 0.10346209, b: 0.23584908, a: 1}
+  m_Color: {r: 0, g: 0.7942071, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -20,7 +20,7 @@ public class Block : MonoBehaviour
     Camera mainCamera;
     SpriteRenderer spriteRenderer;
     
-    Transform playScreen;
+    Transform gameScreen;
     float leftGameBorder;
     float rightGameBorder;
 
@@ -56,13 +56,13 @@ public class Block : MonoBehaviour
     void GameBoundariesSetUp()
     {
         // Get game boundaries.
-        playScreen = gameManager.playScreen;
+        gameScreen = gameManager.gameScreen;
 
         // Set borders.
-        float playScreenWidth = playScreen.localScale.x;
+        float playScreenWidth = gameScreen.localScale.x;
 
-        leftGameBorder = playScreen.position.x - (playScreenWidth - width) / 2f;
-        rightGameBorder = playScreen.position.x + (playScreenWidth - width) / 2f;
+        leftGameBorder = gameScreen.position.x - (playScreenWidth - width) / 2f;
+        rightGameBorder = gameScreen.position.x + (playScreenWidth - width) / 2f;
     }
 
     void RandomiseStart()
